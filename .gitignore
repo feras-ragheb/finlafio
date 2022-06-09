@@ -1,0 +1,16 @@
+/node_modules
+/.idea
+/.vscode
+/angular/documentation
+/angular/node_modules
+/angular/dist
+/angular/.idea
+/angular/.vscode
+__pycache__/
+*.py[cod]
+migrations/
+src/finlafio/media
+src/finlafio/static_root
+src/finlafio/settings.py
+.env
+.vscode
