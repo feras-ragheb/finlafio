@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'front_src',
     'core',
     'membership',
-    'trader',
-    'api',
     'rest_framework',
     'rest_framework.authtoken',
 ]

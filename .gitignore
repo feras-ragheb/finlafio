@@ -1,7 +1,7 @@
 /node_modules
 /.idea
 /.vscode
-src/.idea
+/src/.idea
 /angular/documentation
 /angular/node_modules
 /angular/dist
