@@ -1,11 +1,13 @@
 /node_modules
 /.idea
 /.vscode
+/src/.idea
 /angular/documentation
 /angular/node_modules
 /angular/dist
 /angular/.idea
 /angular/.vscode
+/angular/.angular
 __pycache__/
 *.py[cod]
 migrations/
