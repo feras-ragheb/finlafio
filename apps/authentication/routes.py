@@ -18,7 +18,8 @@ from apps.authentication.models import Users
 from apps.authentication.util import verify_pass
 import pandas as pd
 import bcrypt
-
+import tensorflow as tf
+import numpy as np
 @blueprint.route('/')
 def route_default():
     return redirect(url_for('authentication_blueprint.login'))
@@ -146,7 +147,17 @@ def getMonthlySetniment():
 @blueprint.route('/getAppleData', methods=['GET'])
 def getAppleData():
     data = pd.read_csv("apps/data/apple_data.csv")
+    model = tf.keras.models.load_model('apps/data/models/model.hdf5')
+    X_train = []
+    seq_len = 32
+    data_2 = data[['close', 'high', 'low', 'open', 'volume', 'NN', 'NP']].values
+    for i in range(seq_len, len(data_2)):
+        X_train.append(data_2[i-seq_len:i])
+
+    X_train = np.array(X_train)
+
     
+    data['EC'] = np.concatenate((np.zeros(32), model.predict(X_train)), axis=None)
     return data.to_json()
 
 @blueprint.route('/getAllNews', methods=['GET'])
