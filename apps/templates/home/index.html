@@ -12,6 +12,7 @@
 
   function updateQuarterly() {
     var xhttp = new XMLHttpRequest();
+    
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         obj = JSON.parse(this.responseText);
@@ -22,13 +23,14 @@
         window.BarsChart.update();
       }
     };
-    xhttp.open("GET", "http://127.0.0.1:5000/getQuarterlySetniment", true);
+    xhttp.open("GET", "http://localhost:5000/getQuarterlySetniment", true);
     xhttp.send();
   }
 
 
   function updateMonthly() {
     var xhttp = new XMLHttpRequest();
+    
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         obj = JSON.parse(this.responseText);
@@ -126,7 +128,7 @@
 <div class="container-fluid mt--6">
   <div class="row">
     <div class="col-xl-8">
-      <div class="card bg-default">
+      <div class="card ">
 
         <div class="card-body">
           <!-- Chart -->
@@ -145,17 +147,17 @@
                 datasets: [
                   {
                     type: "bar",
-                    backgroundColor: "rgba(255, 0, 0, 0.2)",
+                    backgroundColor: "rgba(255, 0, 0, 1)",
                     borderColor: "rgba(255, 0, 0, 1)",
-                    borderWidth: 0,
-                    barPercentage: 0.9,
+                    borderWidth: 1,
+                    barPercentage: 1,
                     label: "Negative News",
                     data: [60, 49, 72, 90, null, null]
                   },
 
                   {
                     type: "bar",
-                    backgroundColor: "rgba(0, 0, 255, 0.2)",
+                    backgroundColor: "rgba(0, 0, 255, 1)",
                     borderColor: "rgba(0, 0, 255, 1)",
                     borderWidth: 0,
                     barPercentage: 0.9,
@@ -174,17 +176,15 @@
                   {
                     type: "line",
                     label: "expected Close",
-                    backgroundColor: "rgba(255, 255, 0, 1)",
-                    borderColor: "rgba(255, 255, 0, 0.5)",
+                    backgroundColor: "rgba(128,0,128, 1)",
+                    borderColor: "rgba(128,0,128, 0.5)",
                     data: [null, null, null, 35, 20, 33],
                     lineTension: 0,
                     fill: false
                   }
                 ]
               },
-              options: {
-                categoryPercentage: 0.1,
-              }
+              
             });
 
 
@@ -472,7 +472,31 @@
         window.BarsChart.update();
       }
     };
-    xhttp.open("GET", "http://127.0.0.1:5000/getMonthlySetniment", true);
+    xhttp.open("GET", "http://localhost:5000/getMonthlySetniment", true);
     xhttp.send();
+
+
+    ////////////////////////////////////////////////
+
+    var xhttp2 = new XMLHttpRequest();
+
+    xhttp2.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        obj = JSON.parse(this.responseText);
+        window.myLine.data.labels = ((Object.values(obj.Date)).slice(-1100, -990));
+        
+        window.myLine.data.datasets[0].data = ((Object.values(obj.NN)).slice(-1100, -1000));
+        window.myLine.data.datasets[1].data = ((Object.values(obj.NP)).slice(-1100, -1000));
+        window.myLine.data.datasets[2].data = (Object.values(obj.close)).slice(-1100, -1000);
+        // window.myLine.data.datasets[1].data = []
+        window.myLine.data.datasets[0].data.push(null,null,null,null,null,null,null,null,null,null)
+        window.myLine.data.datasets[1].data.push(null,null,null,null,null,null,null,null,null,null)
+        window.myLine.data.datasets[2].data.push(null,null,null,null,null,null,null,null,null,null)
+        window.myLine.data.datasets[3].data = (new Array(100).fill(null)).concat((Object.values(obj.EC)).slice(-1000, -990));
+        window.myLine.update();
+      }
+    };
+    xhttp2.open("GET", "http://localhost:5000/getAppleData", true);
+    xhttp2.send();
 </script>
 {% endblock javascripts %}

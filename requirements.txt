@@ -34,3 +34,4 @@ six==1.16.0
 SQLAlchemy==1.4.23
 Werkzeug==2.0.0
 WTForms==2.3.3
+flask-cors
