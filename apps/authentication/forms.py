@@ -34,22 +34,36 @@ class CreateAccountForm(FlaskForm):
     plan = SelectField(choices=(
                 (1, 'Free'),
                 (2, 'PAID'),
+            ),validators=[DataRequired()], coerce=int)  
+
+    
+    
+    
+class UpdateProfileForm(FlaskForm):
+    username = TextField('Username',
+                         id='username_create',
+                         validators=[DataRequired()])
+    email = TextField('Email',
+                      id='email_create',
+                      validators=[DataRequired(), Email()])
+    password = PasswordField('Password',
+                             id='pwd_create')
+
+    plan = SelectField(choices=(
+                (1, 'Free'),
+                (2, 'PAID'),
             ),validators=[DataRequired()], coerce=int)
-    favorite_news = SelectMultipleField(choices=(
+    favorite_news = SelectMultipleField("Favorite News",choices=(
                 (1, 'BBC'),
                 (2, 'CNN'),
                 (3, 'Aljazeera'),
             ),validators=[DataRequired()], coerce=int)
-    favorite_stocks = SelectMultipleField(choices=(
+    favorite_stocks = SelectMultipleField("Favorite Stocks",choices=(
                 (1, 'APP'),
                 (2, 'Google'),
             ),validators=[DataRequired()], coerce=int)
 
-    favorite_influancer = SelectMultipleField(choices=(
+    favorite_influencer = SelectMultipleField("Favorite Influencer",choices=(
                 (1, 'Elyon Mask'),
                 (2, 'Jeff Bezos'),
-            ),validators=[DataRequired()], coerce=int)        
-
-    
-    
-    
+            ),validators=[DataRequired()], coerce=int) 

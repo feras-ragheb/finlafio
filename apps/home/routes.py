@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from apps.home import blueprint
-from flask import render_template, request
+from flask import render_template, request, session
 from flask_login import login_required
 from jinja2 import TemplateNotFound
 
@@ -12,8 +12,12 @@ from jinja2 import TemplateNotFound
 @blueprint.route('/index')
 @login_required
 def index():
+    if 'plan' in session and session['plan'] == 1:
+        return render_template('home/free-index.html', segment='index')
 
-    return render_template('home/index.html', segment='index')
+    return render_template('home/paid-index.html', segment='index')
+
+       
 
 
 @blueprint.route('/<template>')
